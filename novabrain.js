@@ -1,48 +1,20 @@
 
-        var Novabrain = require('novabrain');
-		var Neuron    = Novabrain.Neuron;
-		var Layer     = Novabrain.Layer;
-		var Network   = Novabrain.Network;
-		var Trainer   = Novabrain.Trainer;
-		var Transfer  = Novabrain.Transfer;
-		var Samples   = Novabrain.Samples;
-
-  var example = (function() {
-	  
-		return {
-	    
-         Percept : function(input, hidden, output){
-/*     
-	 function Perceptron(input, hidden, output)
-{
-    // create the layers
-    var inputLayer = new Layer(input);
-    var hiddenLayer = new Layer(hidden);
-    var outputLayer = new Layer(output);
-
-    // connect the layers
-    inputLayer.project(hiddenLayer);
-    hiddenLayer.project(outputLayer);
-
-    // set the layers
-    this.set({
-        input: inputLayer,
-        hidden: [hiddenLayer],
-        output: outputLayer
-    });
-}
-
-// extend the prototype chain
-Perceptron.prototype = new Network();
-Perceptron.prototype.constructor = Perceptron;
-*/
-	 
-		 },
-
-  		 Train: function(trainer, trainmethod){
-			 
-			switch (trainmethod){	
-				case "backpropagate": {
+var Novabrain = require('novabrain');
+var Neuron    = Novabrain.Neuron;
+var Layer     = Novabrain.Layer;
+var Network   = Novabrain.Network;
+var Trainer   = Novabrain.Trainer;
+var Transfer  = Novabrain.Transfer;
+var Samples   = Novabrain.Samples;
+var example = (function(){
+  return {
+    Train: function(trainer, trainmethod){
+      
+		  switch (trainmethod)
+		  {
+				case "backpropagate": 
+				{
+				  
 					console.info("training "+ trainmethod);
 						trainer.train([
 							{ input: [0,0], output: [1] },
@@ -52,8 +24,10 @@ Perceptron.prototype.constructor = Perceptron;
 					    ]);
 						
 						break;
+				
 				}
-				case "direct": {
+				case "direct": 
+				{
 					console.info("training "+ trainmethod);
 						trainer.train([
 							{ input: [0,0], output: [0] },
@@ -64,9 +38,10 @@ Perceptron.prototype.constructor = Perceptron;
 						break;
 				} 
 			}  
-		 },
-		 Sample: function(config){
-			
+		
+    },
+		Sample: function(config){
+		  
 			console.info("running "+ config); 
 			 
 			var network = new Novabrain.Network(2,1);
@@ -76,21 +51,21 @@ Perceptron.prototype.constructor = Perceptron;
 			 example.networkOutput(network, Novabrain.Transfer.SIGMOID);
 			 example.Train(trainer, "backpropagate");
 			 example.networkOutput(network, Novabrain.Transfer.BOOLEAN);	
-		 },
+			 
 		 
+		},
 		 //network, Novabrain.Transfer.BOOLEAN
-		 networkOutput(network, transfer){    
+		 networkOutput(network, transfer){
 			network.transfer = transfer;
 			console.log([0,0], network.output([0,0])); // [false]
 			console.log([0,1], network.output([0,1])); // [true]
 			console.log([1,0], network.output([1,0])); // [true]
 			console.log([1,1], network.output([1,1])); // [false]
 		 } 
-			
-		}
+	}
+})();
 
-    })();
-
- 	example.Sample(Novabrain.Samples.XOR.config);
+example.Sample(Novabrain.Samples.XOR.config);
+example.Sample(Novabrain.Samples.OR.config);
 	 
 	
